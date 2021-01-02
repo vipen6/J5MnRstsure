@@ -4,15 +4,15 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import utils.FakerUtils;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
-public class Demo_01_base {
-    private static final Logger logger = LoggerFactory.getLogger(Demo_01_base.class);
+public class Demo_03_01_repeat_timestamp {
+    private static final Logger logger = LoggerFactory.getLogger(Demo_03_01_repeat_timestamp.class);
     static String accessToken;
     static String departmendId;
     @BeforeAll
@@ -30,9 +30,12 @@ public class Demo_01_base {
     @Test
     @Order(1)
     void createDepartment(){
+        String name = "name"+ FakerUtils.getTimeStamp();
+        String enName= "en_name"+FakerUtils.getTimeStamp();
+
         String body = "{\n" +
-                "   \"name\": \"广州研发中心3\",\n" +
-                "   \"name_en\": \"RDGZ3\",\n" +
+                "   \"name\": \""+name+"\",\n" +
+                "   \"name_en\": \""+enName+"\",\n" +
                 "   \"parentid\": 1,\n" +
                 "   \"order\": 3,\n" +
                 "}\n";
@@ -51,9 +54,12 @@ public class Demo_01_base {
     @Test
     @Order(2)
     void updateDepartment(){
+        String name = "name"+ FakerUtils.getTimeStamp();
+        String enName= "en_name"+FakerUtils.getTimeStamp();
+
         String creatbody = "{\n" +
-                "   \"name\": \"广州研发中心3\",\n" +
-                "   \"name_en\": \"RDGZ3\",\n" +
+                "   \"name\": \""+name+"\",\n" +
+                "   \"name_en\": \""+enName+"\",\n" +
                 "   \"parentid\": 1,\n" +
                 "   \"order\": 3,\n" +
                 "}\n";
@@ -68,8 +74,8 @@ public class Demo_01_base {
 
         String updateBody ="{\n" +
                 "   \"id\": "+departmendId+",\n" +
-                "   \"name\": \"广州研发中心修改\",\n" +
-                "   \"name_en\": \"RDGZ31\",\n" +
+                "   \"name\": \""+name+"\",\n" +
+                "   \"name_en\": \""+enName+"\",\n" +
                 "   \"order\": 3\n" +
                 "}\n";
         Response updateresponse = given().log().all()
@@ -86,9 +92,12 @@ public class Demo_01_base {
     @Test
     @Order(3)
     void listDepartment(){
+        String name = "name"+ FakerUtils.getTimeStamp();
+        String enName= "en_name"+FakerUtils.getTimeStamp();
+
         String creatbody = "{\n" +
-                "   \"name\": \"广州研发中心3\",\n" +
-                "   \"name_en\": \"RDGZ3\",\n" +
+                "   \"name\": \""+name+"\",\n" +
+                "   \"name_en\": \""+enName+"\",\n" +
                 "   \"parentid\": 1,\n" +
                 "   \"order\": 3,\n" +
                 "}\n";
@@ -117,9 +126,12 @@ public class Demo_01_base {
     @Test
     @Order(4)
     void deleteDepartment(){
+        String name = "name"+ FakerUtils.getTimeStamp();
+        String enName= "en_name"+FakerUtils.getTimeStamp();
+
         String creatbody = "{\n" +
-                "   \"name\": \"广州研发中心3\",\n" +
-                "   \"name_en\": \"RDGZ3\",\n" +
+                "   \"name\": \""+name+"\",\n" +
+                "   \"name_en\": \""+enName+"\",\n" +
                 "   \"parentid\": 1,\n" +
                 "   \"order\": 3,\n" +
                 "}\n";
