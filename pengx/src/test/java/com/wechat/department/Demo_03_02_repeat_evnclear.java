@@ -6,16 +6,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.FakerUtils;
 
+import java.util.ArrayList;
+
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
- * 增加动态参数
+ * 增加初始化数据方法clearDepartment()
  *
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
-public class Demo_03_01_repeat_timestamp {
-    private static final Logger logger = LoggerFactory.getLogger(Demo_03_01_repeat_timestamp.class);
+public class Demo_03_02_repeat_evnclear {
+    private static final Logger logger = LoggerFactory.getLogger(Demo_03_02_repeat_evnclear.class);
     static String accessToken;
     static String departmendId;
     @BeforeAll
@@ -29,6 +32,39 @@ public class Demo_03_01_repeat_timestamp {
                 .extract()
                 .response().path("access_token");
     }
+
+    //初始化数据
+    @BeforeEach
+    @AfterEach
+    void clearDepartment(){
+        //先查询到id为1的子部门
+        Response listResponse = given().log().all()
+                .when()
+                .param("id",1)
+                .param("access_token",accessToken)
+                .get("https://qyapi.weixin.qq.com/cgi-bin/department/list")
+                .then()
+                .log().body()
+                .extract().response();
+        ArrayList<Integer> departmentlistid = listResponse.path("department.id");
+        //遍历查到到id集合
+        for(int departmentid : departmentlistid){
+            if(1==departmentid){
+                continue;
+            }
+            //遍历删除子部门
+            Response delResponse = given().log().all()
+                    .contentType("application/json")
+                    .param("access_token",accessToken)
+                    .param("id",departmentid)
+                    .get("https://qyapi.weixin.qq.com/cgi-bin/department/delete")
+                    .then()
+                    .log().body()
+                    .extract().response();
+        }
+
+    }
+
     @DisplayName("创建部门")
     @Test
     @Order(1)
