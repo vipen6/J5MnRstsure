@@ -65,6 +65,7 @@
         </dependency>
 
         <!--rest assured相关-->
+        <!--注意版本junit-jupiter-api-->
         <!-- junit-jupiter-engine: Junit的核心测试引擎
 junit-jupiter-params: 编写参数化测试所需要的依赖包
 junit-platform-launcher: 从IDE(InteliJ/Eclipses)等运行时所需要的启动器-->
