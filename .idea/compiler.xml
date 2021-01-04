@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="pengx" target="1.5" />
+      <module name="pengx" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
